@@ -2,12 +2,12 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  Navbar, //
+  Navbar,
   Container,
   Nav,
   Button,
 } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
+import { signOut } from '../../utils/auth';
 
 export default function NavBar() {
   return (
