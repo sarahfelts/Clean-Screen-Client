@@ -1,7 +1,8 @@
 Clean Screen is an application designed to help moviegoers identify and avoid potential triggers while watching films. Users can look up movies and view warnings related to content such as vomit, animal harm, child harm, needles, etc., complete with timestamps. The app empowers users to make informed decisions about their viewing experience by providing detailed and user-submitted warnings.
 
 Deployed Project
-*
+
+-
 
 Project Board
 https://github.com/users/sarahfelts/projects/2/views/1

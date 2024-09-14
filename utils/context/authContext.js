@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';  // Correct import from Firebase Auth
-import { auth } from '../../src/firebase/firebaseConfig';    // Use the initialized auth from firebaseConfig.js
-import { checkUser } from '../auth'; // Assuming you have a custom checkUser function
+import React, {
+  createContext, useContext, useEffect, useMemo, useState,
+} from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import auth from '../../src/firebase/firebaseConfig';
+import { checkUser } from '../auth';
 
 const AuthContext = createContext();
 AuthContext.displayName = 'AuthContext';
@@ -36,16 +38,19 @@ const AuthProvider = (props) => {
         setUser(false);
       }
     });
-    
+
     // Cleanup the subscription on unmount
     return () => unsubscribe();
-  }, [auth]);
+  }, []);
 
-  const value = useMemo(() => ({
-    user,
-    updateUser,
-    userLoading: user === null || oAuthUser === null,
-  }), [user, oAuthUser, updateUser]);
+  const value = useMemo(
+    () => ({
+      user,
+      updateUser,
+      userLoading: user === null || oAuthUser === null,
+    }),
+    [user, oAuthUser, updateUser],
+  );
 
   return <AuthContext.Provider value={value} {...props} />;
 };
