@@ -1,27 +1,14 @@
-// Context API Docs: https://beta.reactjs.org/learn/passing-data-deeply-with-context
-
-import React, {
-  createContext, //
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { checkUser } from '../auth';
-import { firebase } from '../client';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';  // Correct import from Firebase Auth
+import { auth } from '../../src/firebase/firebaseConfig';    // Use the initialized auth from firebaseConfig.js
+import { checkUser } from '../auth'; // Assuming you have a custom checkUser function
 
 const AuthContext = createContext();
-
-AuthContext.displayName = 'AuthContext'; // Context object accepts a displayName string property. React DevTools uses this string to determine what to display for the context. https://reactjs.org/docs/context.html#contextdisplayname
+AuthContext.displayName = 'AuthContext';
 
 const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
   const [oAuthUser, setOAuthUser] = useState(null);
-
-  // there are 3 states for the user:
-  // null = application initial state, not yet loaded
-  // false = user is not logged in, but the app has loaded
-  // an object/value = user is logged in
 
   const updateUser = useMemo(
     () => (uid) => checkUser(uid).then((gamerInfo) => {
@@ -30,8 +17,9 @@ const AuthProvider = (props) => {
     [oAuthUser],
   );
 
+  // Firebase auth state listener
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((fbUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (fbUser) => {
       if (fbUser) {
         setOAuthUser(fbUser);
         checkUser(fbUser.uid).then((gamerInfo) => {
@@ -47,32 +35,27 @@ const AuthProvider = (props) => {
         setOAuthUser(false);
         setUser(false);
       }
-    }); // creates a single global listener for auth state changed
-  }, []);
+    });
+    
+    // Cleanup the subscription on unmount
+    return () => unsubscribe();
+  }, [auth]);
 
-  const value = useMemo(
-    // https://reactjs.org/docs/hooks-reference.html#usememo
-    () => ({
-      user,
-      updateUser,
-      userLoading: user === null || oAuthUser === null,
-      // as long as user === null, will be true
-      // As soon as the user value !== null, value will be false
-    }),
-    [user, oAuthUser, updateUser],
-  );
+  const value = useMemo(() => ({
+    user,
+    updateUser,
+    userLoading: user === null || oAuthUser === null,
+  }), [user, oAuthUser, updateUser]);
 
   return <AuthContext.Provider value={value} {...props} />;
 };
-const AuthConsumer = AuthContext.Consumer;
 
 const useAuth = () => {
   const context = useContext(AuthContext);
-
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };
 
-export { AuthProvider, useAuth, AuthConsumer };
+export { AuthProvider, useAuth };

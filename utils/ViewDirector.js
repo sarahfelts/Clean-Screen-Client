@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useAuth } from './context/authContext';
-import Loading from '../components/Loading';
-import Signin from '../components/Signin';
-import NavBar from '../components/NavBar';
-import RegisterForm from '../components/RegisterForm';
+import Loading from '../src/components/Loading';
+import Signin from '../src/components/Signin';
+import NavBar from '../src/components/NavBar';
+import RegisterForm from '../src/components/RegisterForm';
 
 const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) => {
   const { user, userLoading, updateUser } = useAuth();

@@ -1,44 +1,27 @@
-# React/Next.js Django Auth Template
+Clean Screen is an application designed to help moviegoers identify and avoid potential triggers while watching films. Users can look up movies and view warnings related to content such as vomit, animal harm, child harm, needles, etc., complete with timestamps. The app empowers users to make informed decisions about their viewing experience by providing detailed and user-submitted warnings.
 
-## Topics
-- [Get Started](#getting-started)
-- [Starting the Project](#starting-the-project)
-___
-## Getting Started
-### Use Template
-#### 1. To get started, click the GREEN "Use this Template" button at the top of the repo
-<img width="915" alt="Screen Shot 2022-07-06 at 12 54 01 PM" src="https://user-images.githubusercontent.com/29741570/177612998-4aac9237-5a1e-4f13-8ae0-468587521564.png">
+Deployed Project
+*
 
-#### 2. Make sure YOUR github account is selected in the dropdown and name your project
-<img width="763" alt="Screen Shot 2022-07-06 at 12 54 48 PM" src="https://user-images.githubusercontent.com/29741570/177613126-dd38f678-7553-4f27-8a4a-75680f14d71e.png">
+Project Board
+https://github.com/users/sarahfelts/projects/2/views/1
 
-#### 3. Clone your new repo to your local machine
-#### 4. Go to the **NEXT** section
+User Description
+Clean Screen is designed for moviegoers who may have specific sensitivities or preferences regarding certain content in films. Whether you're trying to avoid specific triggers or just want a heads-up before watching a movie, Clean Screen provides an easy-to-use platform to get the information you need.
 
-## Starting the Project
-1. Create a Firebase project and set up authentication. Use [these videos](https://vimeo.com/showcase/codetracker-firebase) as a refresher if needed.
-1. Create a `.env` file at the root of the project
-1. Copy/Paste the contents of the `.env.sample` file to your newly created `.env` file.
-1. Copy over all of your Firebase values into the `.env` file.
-1. Open the `package.json` file and change the `name` property to the name of your application, and `author` to  your name.
-1. From your command line, be in the root directory and run `npm install` OR `npm i` for short.
-1. Next, run `npm run prepare`. This command sets up husky to track eslint errors on commit that will make your deploy fail on Netlify.
-1. To start your application, run `npm run dev`. THIS IS THE COMMAND YOU WILL USE TO RUN YOUR DEVELOPMENT SERVER FROM NOW ON.
-1. Open [http://localhost:3000](http://localhost:3000) with your browser.
+Features
+User Authentication: Users can sign up, log in, and manage their profiles.
+Movie Database: Browse a wide range of movies with detailed information.
+Warnings and Triggers: View warnings for various triggers along with timestamps.
+User-Generated Content: Submit and approve warnings for movies.
+Saved Movies: Save movies to your profile for quick access.
+User Ratings: Rate movies and view community ratings.
 
-### If you see this, you are set to go!
-<img width="450" alt="Screen Shot 2022-07-06 at 1 07 27 PM" src="https://user-images.githubusercontent.com/29741570/177615077-9b6a75bc-0260-4d29-bb88-bd95a3140687.png">
+Contributors:
+Sarah Felts
 
+Loom Video Walkthrough
+https://www.loom.com/share/a1d2379fcc084a599ef226d2c923c0a5?sid=66ae3d61-d62a-436a-af58-3e8bf05e613a
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-**NOTES:** 
-- If you see the following error, you did not follow all the setup steps correctly and failed to add your Firebase creds. Go back and do that NOW.
-
-<img width="1043" alt="Screen Shot 2022-07-06 at 11 18 45 AM" src="https://user-images.githubusercontent.com/29741570/177612501-c2628f18-4bbd-4de9-aae6-27ffba1172d6.png">
-        
-## Learn More about Next.js
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+API Documentation
+https://documenter.getpostman.com/view/32319581/2sAXjNYBVA
