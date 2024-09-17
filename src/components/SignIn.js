@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-//import { Button } from 'react-bootstrap';
-//import { signIn } from '../../utils/auth';
+import PropTypes from 'prop-types';
 
-const SignIn = () => {
+const SignIn = ({ onSignIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -22,8 +21,9 @@ const SignIn = () => {
       <h2>Sign In</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Email</label>
+          <label htmlFor="email">Email</label>
           <input
+            id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -31,8 +31,9 @@ const SignIn = () => {
           />
         </div>
         <div>
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <input
+            id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -44,6 +45,10 @@ const SignIn = () => {
       </form>
     </div>
   );
+};
+
+SignIn.propTypes = {
+  onSignIn: PropTypes.func.isRequired,
 };
 
 export default SignIn;

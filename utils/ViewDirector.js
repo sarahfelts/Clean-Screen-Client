@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useAuth } from './context/authContext';
 import Loading from '../src/components/Loading';
-import Signin from '../src/components/Signin';
+import Signin from '../src/components/SignIn';
 import NavBar from '../src/components/NavBar';
 import RegisterForm from '../src/components/RegisterForm';
 

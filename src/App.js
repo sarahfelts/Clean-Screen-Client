@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { signIn, signOut, checkUser } from '../utils/auth';
-//import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
-import SignIn from './pages/SignIn';
+import SignIn from './components/SignIn';
 
 function App() {
   const [user, setUser] = useState(null);
