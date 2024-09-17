@@ -1,21 +1,17 @@
-import {
-  signInWithPopup, GoogleAuthProvider, signOut as firebaseSignOut,
-} from 'firebase/auth';
-import auth from '../src/firebase/firebaseConfig';
+import axios from 'axios';
 import { clientCredentials } from './client';
 
-const checkUser = (uid) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/checkuser`, {
-    method: 'POST',
-    body: JSON.stringify({ uid }),
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-  })
-    .then((resp) => resolve(resp.json()))
-    .catch(reject);
-});
+const checkUser = async () => {
+  try {
+    const response = await axios.get('http://localhost:8000/check-user/', {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error checking user', error);
+    throw error;
+  }
+};
 
 const registerUser = (userInfo) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/register`, {
@@ -30,27 +26,33 @@ const registerUser = (userInfo) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// Sign in using Google Auth
-const signIn = async () => {
-  const provider = new GoogleAuthProvider(); // GoogleAuthProvider for sign-in
+const signIn = async (email, password) => {
   try {
-    const result = await signInWithPopup(auth, provider);
-    const { user } = result;
-    return user; // Return the signed-in user object
+    const response = await axios.post('http://localhost:8000/login/', {
+      email,
+      password,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    });
+    return response.data;
   } catch (error) {
-    throw new Error('Failed to sign in. Please try again.');
+    console.error('Error during sign-in', error);
+    throw error;
   }
 };
 
-// Sign out the current user
 const signOut = async () => {
   try {
-    await firebaseSignOut(auth);
-    // Handle successful sign out with a return or feedback
-    return 'Sign out successful';
+    const response = await axios.post('http://localhost:8000/logout/', {}, {
+      withCredentials: true,
+    });
+    return response.data;
   } catch (error) {
-    // Replace console.error with error handling
-    throw new Error('Failed to sign out. Please try again.');
+    console.error('Error during sign-out', error);
+    throw error;
   }
 };
 

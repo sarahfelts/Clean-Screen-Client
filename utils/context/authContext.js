@@ -1,8 +1,6 @@
 import React, {
-  createContext, useContext, useEffect, useMemo, useState,
+  createContext, useContext, useMemo, useState,
 } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import auth from '../../src/firebase/firebaseConfig';
 import { checkUser } from '../auth';
 
 const AuthContext = createContext();
@@ -10,46 +8,21 @@ AuthContext.displayName = 'AuthContext';
 
 const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
-  const [oAuthUser, setOAuthUser] = useState(null);
 
   const updateUser = useMemo(
-    () => (uid) => checkUser(uid).then((gamerInfo) => {
-      setUser({ fbUser: oAuthUser, ...gamerInfo });
+    () => (uid) => checkUser(uid).then((userInfo) => {
+      setUser(userInfo);
     }),
-    [oAuthUser],
+    [],
   );
-
-  // Firebase auth state listener
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (fbUser) => {
-      if (fbUser) {
-        setOAuthUser(fbUser);
-        checkUser(fbUser.uid).then((gamerInfo) => {
-          let userObj = {};
-          if ('null' in gamerInfo) {
-            userObj = gamerInfo;
-          } else {
-            userObj = { fbUser, uid: fbUser.uid, ...gamerInfo };
-          }
-          setUser(userObj);
-        });
-      } else {
-        setOAuthUser(false);
-        setUser(false);
-      }
-    });
-
-    // Cleanup the subscription on unmount
-    return () => unsubscribe();
-  }, []);
 
   const value = useMemo(
     () => ({
       user,
       updateUser,
-      userLoading: user === null || oAuthUser === null,
+      userLoading: user === null,
     }),
-    [user, oAuthUser, updateUser],
+    [user, updateUser],
   );
 
   return <AuthContext.Provider value={value} {...props} />;
