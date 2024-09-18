@@ -17,7 +17,7 @@ const SignIn = () => {
       }, { withCredentials: true });
 
       if (response.status === 200) {
-        console.log('Login successful:', response.data);
+        console.warn('Login successful:', response.data);
       }
     } catch (err) {
       console.error('Error during login:', err);
