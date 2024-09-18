@@ -1,54 +1,58 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import axios from 'axios';
 
-const SignIn = ({ onSignIn }) => {
+const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    setError(null);
+
     try {
-      setError(null);
-      await onSignIn(email, password);
+      const response = await axios.post('https://clean-screen-6a65ffc4cdce.herokuapp.com/login/', {
+        email,
+        password,
+      }, { withCredentials: true });
+
+      if (response.status === 200) {
+        console.log('Login successful:', response.data);
+      }
     } catch (err) {
-      setError('Failed to sign in. Please check your email and password.');
+      console.error('Error during login:', err);
+      setError('Login failed. Please check your credentials and try again.');
     }
   };
 
   return (
-    <div className="signin-container">
-      <h2>Sign In</h2>
-      <form onSubmit={handleSubmit}>
+    <div>
+      <form onSubmit={handleSignIn}>
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email:</label>
           <input
-            id="email"
             type="email"
+            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password:</label>
           <input
-            id="password"
             type="password"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        {error && <p className="error-message">{error}</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <button type="submit">Sign In</button>
       </form>
     </div>
   );
-};
-
-SignIn.propTypes = {
-  onSignIn: PropTypes.func.isRequired,
 };
 
 export default SignIn;
