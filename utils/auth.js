@@ -3,7 +3,7 @@ import { clientCredentials } from './client';
 
 const checkUser = async () => {
   try {
-    const response = await axios.get('http://localhost:8000/check-user/', {
+    const response = await axios.get('http://localhost:8000/check-user', {
       withCredentials: true,
     });
     return response.data;
@@ -28,7 +28,7 @@ const registerUser = (userInfo) => new Promise((resolve, reject) => {
 
 const signIn = async (email, password) => {
   try {
-    const response = await axios.post('http://localhost:8000/login/', {
+    const response = await axios.post('http://localhost:8000/login', {
       email,
       password,
     }, {
@@ -46,7 +46,7 @@ const signIn = async (email, password) => {
 
 const signOut = async () => {
   try {
-    const response = await axios.post('http://localhost:8000/logout/', {}, {
+    const response = await axios.post('http://localhost:8000/logout', {}, {
       withCredentials: true,
     });
     return response.data;
