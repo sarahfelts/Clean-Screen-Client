@@ -11,7 +11,7 @@ const SignIn = () => {
     setError(null);
 
     try {
-      const response = await axios.post('https://clean-screen-6a65ffc4cdce.herokuapp.com/login/', {
+      const response = await axios.post('https://clean-screen-6a65ffc4cdce.herokuapp.com/login', {
         email,
         password,
       }, { withCredentials: true });
